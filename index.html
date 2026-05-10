@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>M³-Bench — Multi-Modal, Multi-Hop, Multi-Threaded Tool-Using MLLM Agent Benchmark</title>
-  <meta name="description" content="M3-Bench is a benchmark and orchestration suite around the Model Context Protocol (MCP). It evaluates how well multi-modal LLM agents chain real tool calls across 27+ MCP servers on 211 image-grounded tasks." />
+  <meta name="description" content="M3-Bench is a benchmark and orchestration suite for Model Context Protocol (MCP) tool use. It drives multi-modal LLMs through 211 image-grounded tasks spanning 27+ real MCP servers." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
@@ -16,20 +16,20 @@
   <div class="wrap">
     <a class="brand" href="#top">
       <span class="brand-logo">M³</span>
-      <span class="brand-name">M³-Bench</span>
+      <span class="brand-name">m3-bench</span>
     </a>
     <button class="nav-toggle" aria-label="toggle nav">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="nav-links">
-      <a href="#why">Why</a>
-      <a href="#axes">3 Axes</a>
-      <a href="#tools">MCP Servers</a>
-      <a href="#metrics">Metrics</a>
-      <a href="#results">Results</a>
-      <a href="#yolo">YOLO Swap</a>
-      <a href="#quickstart">Quick Start</a>
-      <a href="#resources">Resources</a>
+      <a href="#why">01_why</a>
+      <a href="#axes">02_axes</a>
+      <a href="#tools">03_servers</a>
+      <a href="#metrics">04_metrics</a>
+      <a href="#results">05_results</a>
+      <a href="#yolo">06_yolo</a>
+      <a href="#quickstart">07_run</a>
+      <a href="#resources">08_refs</a>
       <a class="nav-hf" href="https://huggingface.co/datasets/EtaYang10th/Open-M3-Bench" target="_blank" rel="noopener" aria-label="Hugging Face Dataset">
         <svg class="hf-logo" viewBox="0 0 120 120" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
           <circle cx="60" cy="60" r="46" fill="#FFD21E"/>
@@ -48,170 +48,178 @@
 
 <header id="top" class="hero">
   <div class="container">
+    <div class="hero-eyebrow"><span class="dot"></span>mcp-host · live · arXiv 2511.17729</div>
     <h1>
-      <span class="gradient">Multi-Modal, Multi-Hop, Multi-Threaded</span><br/>
+      <span class="mono-frag">{</span>
+      <span class="neon">Multi-Modal · Multi-Hop · Multi-Threaded</span>
+      <span class="mono-frag">}</span><br/>
       Tool-Using MLLM Agent Benchmark
     </h1>
     <p class="tagline">
-      M³-Bench is a lightweight benchmarking and analysis suite around the
-      <b>Model Context Protocol (MCP)</b>. It orchestrates 27 real MCP servers,
-      drives multi-modal LLMs to solve 211 image-grounded tasks, and evaluates
-      the trajectories at three granularities: step, call, and final answer.
+      M³-Bench is a benchmarking &amp; analysis suite built on top of the
+      <b>Model Context Protocol</b>. It spins up 27 real MCP servers, drives
+      multi-modal LLMs through 211 image-grounded tasks, and evaluates every
+      trajectory at three granularities: step, call, and final answer.
     </p>
 
-    <div class="bullets">
-      <span class="chip"><span class="dot"></span><b>211</b>&nbsp;image-grounded tasks</span>
-      <span class="chip warm"><span class="dot"></span><b>27 MCP servers</b>,&nbsp;200+ tools</span>
-      <span class="chip green"><span class="dot"></span>14+ MLLMs evaluated</span>
-      <span class="chip"><span class="dot"></span>3 eval layers · step / call / answer</span>
+    <div class="hero-chips">
+      <span class="kv">tasks <b>211</b></span>
+      <span class="kv mag">servers <b>27</b></span>
+      <span class="kv lime">tools <b>200+</b></span>
+      <span class="kv amber">MLLMs <b>14</b></span>
+      <span class="kv">eval layers <b>3</b></span>
     </div>
 
     <div class="ctas">
       <a class="btn primary" href="https://arxiv.org/abs/2511.17729" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        arXiv · 2511.17729
+        arxiv/2511.17729
       </a>
-      <a class="btn ghost" href="https://github.com/EtaYang10th/Open-M3-Bench" target="_blank" rel="noopener">
+      <a class="btn" href="https://github.com/EtaYang10th/Open-M3-Bench" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12c0 5.08 3.29 9.39 7.86 10.92.58.11.79-.25.79-.56v-2c-3.2.69-3.87-1.54-3.87-1.54-.53-1.35-1.3-1.71-1.3-1.71-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.73 1.27 3.4.97.1-.75.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.16 1.17a10.98 10.98 0 0 1 5.76 0c2.2-1.48 3.16-1.17 3.16-1.17.62 1.58.23 2.75.11 3.04.73.8 1.18 1.82 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.42.36.8 1.08.8 2.18v3.23c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
-        GitHub
+        github/Open-M3-Bench
       </a>
       <a class="btn hf" href="https://huggingface.co/datasets/EtaYang10th/Open-M3-Bench" target="_blank" rel="noopener">
         <svg class="hf-logo" viewBox="0 0 120 120" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
           <circle cx="60" cy="60" r="46" fill="#FFD21E"/>
-          <circle cx="60" cy="60" r="46" fill="none" stroke="#FFBD00" stroke-width="3"/>
           <circle cx="44" cy="54" r="6" fill="#2b2b2b"/>
           <circle cx="76" cy="54" r="6" fill="#2b2b2b"/>
           <path d="M38 72 Q60 92 82 72 Q82 82 60 82 Q38 82 38 72 Z" fill="#2b2b2b"/>
-          <path d="M44 74 Q60 86 76 74 L76 76 Q60 84 44 76 Z" fill="#ff5b5b"/>
         </svg>
-        HF Dataset
+        hf/Open-M3-Bench
       </a>
+    </div>
+
+    <div class="console">
+      <div class="chrome">
+        <span class="dots"><span></span><span></span><span></span></span>
+        <span class="title">mcp-host · task 00000000 · gpt-5 · live trace</span>
+      </div>
+<pre class="mono"><span class="p">user&gt;</span> <span class="d">image:</span> 00000000.png <span class="d">·</span> give me the total price of the 3 drinks on the shelf.
+<span class="p">mcp&gt;</span> <span class="c">mcp-yolo.detect-all-objects</span>(image=00000000.png) → <span class="v">bottle (×3)</span>
+<span class="p">mcp&gt;</span> <span class="c">amazon.search_products</span>(keywords="Pepsi 20 oz")         <span class="d">│</span>
+<span class="p">mcp&gt;</span> <span class="c">amazon.search_products</span>(keywords="Pepsi Zero 20 oz")    <span class="d">├─ parallel</span>
+<span class="p">mcp&gt;</span> <span class="c">amazon.search_products</span>(keywords="Diet Pepsi 20 oz")    <span class="d">│</span>
+<span class="p">mcp&gt;</span> <span class="c">math.sum</span>(numbers=[<span class="h">2.49, 2.49, 2.29</span>]) → <span class="v">7.27</span>
+<span class="p">assistant&gt;</span> <span class="v">Total ≈ $7.27</span>   <span class="d">// 6 tool calls · 3 servers · 2 steps · ✓ reward = 1.0</span></pre>
     </div>
   </div>
 </header>
 
 <section id="why" class="section">
   <div class="container">
-    <div class="section-eyebrow">Why It Matters</div>
+    <div class="section-eyebrow">01 · motivation</div>
     <h2>Real MCP Tools, Not Simulated APIs</h2>
     <p class="lead">
-      Most tool-use benchmarks either hand-craft a small simulated tool set or
-      score the agent by text patterns alone. M³-Bench instead boots <b>real
-      MCP servers</b> and lets the model <b>actually call them</b>: Amazon
-      catalog lookup, Wikipedia, Google Maps, NASA APOD, yfinance, Ultralytics
-      YOLO detection, barcode scanning, OCR, Excel, PowerPoint, and many more.
+      Most tool-use benchmarks handcraft a small simulated tool set or score
+      the agent only on text output. M³-Bench instead <b>boots real MCP
+      servers</b> and lets the model actually call them: Amazon catalog,
+      Wikipedia, Google Maps, NASA APOD, yfinance, Ultralytics YOLO
+      detection, barcode scanning, OCR, Excel, PowerPoint, and many more.
     </p>
     <p class="lead">
       A single task may need the agent to read a shelf photo, detect the
-      products with YOLO, search each one on Amazon to get a price, sum them in
-      a math tool, and return the total — all threaded across multiple servers
+      items with YOLO, search each one on Amazon for a price, sum them with
+      a math tool, and return the total — threaded across multiple servers
       and parallel calls.
     </p>
   </div>
 </section>
 <section id="axes" class="section alt">
   <div class="container">
-    <div class="section-eyebrow">The Three M's</div>
+    <div class="section-eyebrow">02 · the three M's</div>
     <h2>Multi-Modal · Multi-Hop · Multi-Threaded</h2>
     <p class="lead">
-      Every task is designed to stress all three axes at once, so a model
-      cannot get away with single-tool recall or text-only reasoning.
+      Every task stresses all three axes at once, so models cannot coast on
+      single-tool recall or text-only reasoning.
     </p>
 
     <div class="grid cols-3 mt-16">
-      <div class="card">
-        <h3>① Multi-Modal</h3>
+      <div class="card br">
+        <h3><span class="tag">01</span> Multi-Modal</h3>
         <p>Each task ships with an image. The agent must visually parse shelf
-        photos, labels, barcodes, OCR targets, or scene content, then feed that
-        perception into the tool chain.</p>
+        photos, labels, barcodes, OCR targets, or scene content, then feed
+        that perception into the tool chain.</p>
       </div>
-      <div class="card">
-        <h3>② Multi-Hop</h3>
+      <div class="card br">
+        <h3><span class="tag">02</span> Multi-Hop</h3>
         <p>Tool calls span several servers. Typical chains: YOLO → Amazon →
-        Math; OCR → Wiki → Weather; Barcode → OpenLibrary → Review summary.</p>
+        Math · OCR → Wiki → Weather · Barcode → OpenLibrary → Summary.</p>
       </div>
-      <div class="card">
-        <h3>③ Multi-Threaded</h3>
-        <p>Within a single reasoning step the agent often issues several
-        parallel calls (e.g. three Amazon queries at once for three detected
-        items), then synthesizes the joined result.</p>
+      <div class="card br">
+        <h3><span class="tag">03</span> Multi-Threaded</h3>
+        <p>Within a single reasoning step the agent often fires several
+        parallel calls (e.g. three Amazon queries for three items detected in
+        one image), then synthesizes the joined result.</p>
       </div>
     </div>
   </div>
 </section>
 <section id="tools" class="section">
   <div class="container">
-    <div class="section-eyebrow">MCP Server Fleet</div>
-    <h2>27 Real Servers · 200+ Tools</h2>
+    <div class="section-eyebrow">03 · MCP server fleet</div>
+    <h2>27 Real Servers &nbsp;<span style="color:var(--fg-muted);font-family:'JetBrains Mono',monospace;font-weight:500;">·</span>&nbsp; 200+ Tools</h2>
     <p class="lead">
       All servers are booted over stdio through a single
-      <code>MCPHost</code>. The agent sees a unified catalog of tools and picks
-      the top-K relevant ones at each step. The figure below counts tools per
-      server in the current fleet.
+      <code>MCPHost</code>. The agent sees a unified catalog and picks
+      relevant tools at each step. The figure counts tools per server in the
+      current fleet.
     </p>
 
     <figure class="fig fig-wide mt-16">
-      <img src="assets/img/mcp_tools_per_server.png" alt="MCP tools per server" />
-      <figcaption>Number of callable tools exposed by each MCP server in
-      <code>mcp_servers.json</code>. Servers cover vision, knowledge, commerce,
-      finance, mapping, scientific search, office automation, crypto, and
-      nutrition.</figcaption>
+      <img src="assets/img/mcp_tools_per_server.png" alt="Number of callable tools per MCP server" />
+      <figcaption>tools_per_server :: mcp_servers.json</figcaption>
     </figure>
-  </div>
-</section>
 
-<section class="section alt">
-  <div class="container">
-    <div class="section-eyebrow">Server Inventory</div>
-    <h2>What's in the Fleet</h2>
-    <div class="grid cols-3 mt-16">
-      <div class="card"><h3>🧠 Knowledge</h3><p>wiki · openlibrary · paper_search (arXiv / PubMed / bioRxiv / medRxiv / IACR / Semantic Scholar) · nixos · metmuseum · nationalparks.</p></div>
-      <div class="card"><h3>🖼️ Vision</h3><p>ocr · pyzbar (barcodes) · imagesorcery (crop / blur / draw) · mcp-yolo (Ultralytics YOLO + YOLO-World) · linkimage (URL → main image).</p></div>
-      <div class="card"><h3>🛒 Commerce</h3><p>amazon · tmdb · hugeicons · car-price (FIPE API).</p></div>
-      <div class="card"><h3>📈 Finance & Markets</h3><p>yahoo-finance · okx (crypto prices + candlesticks).</p></div>
-      <div class="card"><h3>🗺️ Location & Environment</h3><p>google-maps · google-air · weather · nasa-mcp.</p></div>
-      <div class="card"><h3>🩺 Health & Food</h3><p>healthcare-mcp (FDA / PubMed / Clinical Trials / DICOM) · food_nutrition_mcp.</p></div>
-      <div class="card"><h3>📊 Office</h3><p>excel · ppt (Office-PowerPoint-MCP-Server).</p></div>
-      <div class="card"><h3>🧮 Math</h3><p>Pure arithmetic / stats / trig tools to close out numeric reasoning.</p></div>
-      <div class="card"><h3>💬 Social</h3><p>reddit (subreddit search + post/comments).</p></div>
+    <div class="ascii-sep">── category × server ─────────────────────────────────</div>
+    <div class="grid cols-3">
+      <div class="card"><h3><span class="tag">~</span> knowledge</h3><p>wiki · openlibrary · paper_search (arXiv / PubMed / bioRxiv / medRxiv / IACR / Semantic Scholar) · nixos · metmuseum · nationalparks.</p></div>
+      <div class="card"><h3><span class="tag">~</span> vision</h3><p>ocr · pyzbar (barcodes) · imagesorcery (crop/draw/blur) · mcp-yolo (Ultralytics YOLO + YOLO-World) · linkimage.</p></div>
+      <div class="card"><h3><span class="tag">~</span> commerce</h3><p>amazon · tmdb · hugeicons · car-price (FIPE).</p></div>
+      <div class="card"><h3><span class="tag">~</span> finance</h3><p>yahoo-finance · okx (crypto prices + candlesticks).</p></div>
+      <div class="card"><h3><span class="tag">~</span> location</h3><p>google-maps · google-air · weather · nasa-mcp.</p></div>
+      <div class="card"><h3><span class="tag">~</span> health / food</h3><p>healthcare-mcp (FDA / PubMed / Clinical Trials / DICOM) · food_nutrition_mcp.</p></div>
+      <div class="card"><h3><span class="tag">~</span> office</h3><p>excel · ppt (Office-PowerPoint-MCP-Server).</p></div>
+      <div class="card"><h3><span class="tag">~</span> math</h3><p>arithmetic · stats · trig — closes the numeric reasoning loop.</p></div>
+      <div class="card"><h3><span class="tag">~</span> social</h3><p>reddit (subreddit search, posts, comments).</p></div>
     </div>
   </div>
 </section>
-<section id="metrics" class="section">
+<section id="metrics" class="section alt">
   <div class="container">
-    <div class="section-eyebrow">Three-Layer Evaluation</div>
-    <h2>Step · Call · Final Answer</h2>
+    <div class="section-eyebrow">04 · three-layer eval</div>
+    <h2>step · call · final_answer</h2>
     <p class="lead">
-      We do not score a single scalar. Each prediction is evaluated at three
-      granularities, so weaknesses (e.g. correct plan but wrong final answer)
-      are visible.
+      We do not collapse everything to one scalar. Each prediction is scored
+      at three granularities so weaknesses are visible — e.g. a correct plan
+      with the wrong final answer shows up at the call layer, not at the
+      step layer.
     </p>
 
     <div class="grid cols-3 mt-16">
-      <div class="card">
-        <h3>① Step-level</h3>
-        <p>Trajectory quality against GT steps: <b>recall</b>, <b>precision</b>,
-        <b>avg similarity</b>, <b>step coherence</b>, <b>order consistency</b>,
-        <b>merge purity</b>. Runs in <code>evaluate_trajectories.py</code>.</p>
+      <div class="card br">
+        <h3><span class="tag">§1</span> step-level</h3>
+        <p>Trajectory quality against GT steps: recall, precision,
+        avg similarity, step coherence, order consistency, merge purity.
+        Runs via <code>evaluate_trajectories.py</code>.</p>
       </div>
-      <div class="card">
-        <h3>② Call-level</h3>
-        <p>Per-call classification into correct / partially-correct / hallucinated
-        / redundant categories. Aggregated pies via
+      <div class="card br">
+        <h3><span class="tag">§2</span> call-level</h3>
+        <p>Per-call classification: correct / partially correct /
+        hallucinated / redundant. Aggregated pies in
         <code>evaluate_calls.py</code>.</p>
       </div>
-      <div class="card">
-        <h3>③ Final-answer</h3>
-        <p><b>Task completion</b> and <b>information grounding</b> of the final
-        reply against the GT answer, scored by
-        <code>evaluate_final.py</code>.</p>
+      <div class="card br">
+        <h3><span class="tag">§3</span> final answer</h3>
+        <p>Task completion + information grounding of the final reply vs
+        GT, scored by <code>evaluate_final.py</code>.</p>
       </div>
     </div>
   </div>
 </section>
-<section id="results" class="section alt">
+<section id="results" class="section">
   <div class="container">
-    <div class="section-eyebrow">Main Results</div>
+    <div class="section-eyebrow">05 · main results</div>
     <h2>Step-Level Leaderboard</h2>
     <p class="lead">
       Average step-level score across recall, precision, similarity, step
@@ -219,186 +227,161 @@
       grounding (see <code>save/step_eval_result.csv</code>).
     </p>
 
-    <figure class="fig fig-wide mt-16">
-      <img src="assets/img/metrics_mllm_step_eval.png" alt="Step-level metrics across MLLMs" />
-      <figcaption>Per-metric breakdown across 14 evaluated MLLMs. Higher is
-      better on every axis.</figcaption>
+    <div class="board mt-16">
+      <div class="bar-row top"><span class="name">GPT-5</span><span class="bar"><span style="width:100%"></span></span><span class="val">0.472</span></div>
+      <div class="bar-row"><span class="name">Gemini 2.5 Pro</span><span class="bar"><span style="width:95.7%"></span></span><span class="val">0.452</span></div>
+      <div class="bar-row"><span class="name">Grok 4 (0709)</span><span class="bar"><span style="width:94.6%"></span></span><span class="val">0.447</span></div>
+      <div class="bar-row"><span class="name">Gemini 2.5 Flash</span><span class="bar"><span style="width:79.4%"></span></span><span class="val">0.375</span></div>
+      <div class="bar-row"><span class="name">Claude 4.5 Sonnet</span><span class="bar"><span style="width:72.5%"></span></span><span class="val">0.342</span></div>
+      <div class="bar-row"><span class="name">GPT-5 Mini</span><span class="bar"><span style="width:67.2%"></span></span><span class="val">0.317</span></div>
+      <div class="bar-row"><span class="name">Grok 4 Fast</span><span class="bar"><span style="width:62.9%"></span></span><span class="val">0.297</span></div>
+      <div class="bar-row"><span class="name">Llama-4-Scout-17B-16E</span><span class="bar"><span style="width:62.3%"></span></span><span class="val">0.294</span></div>
+      <div class="bar-row"><span class="name">GPT-5 Nano</span><span class="bar"><span style="width:54.4%"></span></span><span class="val">0.257</span></div>
+      <div class="bar-row"><span class="name">Claude 4.5 Haiku</span><span class="bar"><span style="width:43.2%"></span></span><span class="val">0.204</span></div>
+      <div class="bar-row"><span class="name">InternVL 3.5</span><span class="bar"><span style="width:40.3%"></span></span><span class="val">0.190</span></div>
+      <div class="bar-row"><span class="name">Gemini 2.5 Flash Lite</span><span class="bar"><span style="width:38.1%"></span></span><span class="val">0.180</span></div>
+      <div class="bar-row"><span class="name">Qwen2.5-VL-72B</span><span class="bar"><span style="width:29.6%"></span></span><span class="val">0.140</span></div>
+      <div class="bar-row"><span class="name">GLM 4.5v</span><span class="bar"><span style="width:6.1%"></span></span><span class="val">0.029</span></div>
+    </div>
+
+    <figure class="fig fig-wide mt-24">
+      <img src="assets/img/metrics_mllm_step_eval.png" alt="Per-metric breakdown for 14 MLLMs" />
+      <figcaption>per_metric_breakdown :: 14 MLLMs · higher is better on every axis</figcaption>
     </figure>
 
-    <div class="table-wrap mt-24">
-      <table class="sk">
-        <thead>
-          <tr><th>Model</th><th>Recall</th><th>Precision</th><th>Step Coh.</th><th>Order Cons.</th><th>Completion</th><th>Info Ground.</th><th>Avg</th></tr>
-        </thead>
-        <tbody>
-          <tr class="best"><td><b>GPT-5</b></td><td>0.623</td><td>0.276</td><td>0.505</td><td>0.304</td><td>0.616</td><td>0.594</td><td><b>0.472</b></td></tr>
-          <tr><td>Gemini 2.5 Pro</td><td>0.546</td><td>0.513</td><td>0.501</td><td>0.293</td><td>0.487</td><td>0.427</td><td>0.452</td></tr>
-          <tr><td>Grok 4 (0709)</td><td>0.532</td><td>0.417</td><td>0.460</td><td>0.281</td><td>0.606</td><td>0.530</td><td>0.447</td></tr>
-          <tr><td>Gemini 2.5 Flash</td><td>0.442</td><td>0.405</td><td>0.345</td><td>0.201</td><td>0.496</td><td>0.449</td><td>0.375</td></tr>
-          <tr><td>Claude 4.5 Sonnet</td><td>0.412</td><td>0.369</td><td>0.405</td><td>0.148</td><td>0.535</td><td>0.451</td><td>0.342</td></tr>
-          <tr><td>GPT-5 Mini</td><td>0.373</td><td>0.189</td><td>0.310</td><td>0.136</td><td>0.571</td><td>0.566</td><td>0.317</td></tr>
-          <tr><td>Grok 4 Fast</td><td>0.344</td><td>0.360</td><td>0.284</td><td>0.123</td><td>0.501</td><td>0.378</td><td>0.297</td></tr>
-          <tr><td>Llama-4-Scout-17B-16E</td><td>0.409</td><td>0.191</td><td>0.323</td><td>0.093</td><td>0.385</td><td>0.354</td><td>0.294</td></tr>
-          <tr><td>GPT-5 Nano</td><td>0.317</td><td>0.116</td><td>0.248</td><td>0.060</td><td>0.502</td><td>0.478</td><td>0.257</td></tr>
-          <tr><td>Claude 4.5 Haiku</td><td>0.193</td><td>0.480</td><td>0.190</td><td>0.053</td><td>0.386</td><td>0.247</td><td>0.204</td></tr>
-          <tr><td>InternVL 3.5</td><td>0.237</td><td>0.162</td><td>0.208</td><td>0.054</td><td>0.319</td><td>0.292</td><td>0.190</td></tr>
-          <tr><td>Gemini 2.5 Flash Lite</td><td>0.213</td><td>0.189</td><td>0.191</td><td>0.048</td><td>0.316</td><td>0.259</td><td>0.180</td></tr>
-          <tr><td>Qwen2.5-VL-72B</td><td>0.143</td><td>0.072</td><td>0.125</td><td>0.020</td><td>0.303</td><td>0.388</td><td>0.140</td></tr>
-          <tr><td>GLM 4.5v</td><td>0.013</td><td>0.023</td><td>0.012</td><td>0.000</td><td>0.285</td><td>0.130</td><td>0.029</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="small mt-8">Source: <code>save/step_eval_result.csv</code>. The
-    highlighted row is the current overall leader.</p>
-
     <div class="takeaway mt-24">
-      <b>Two observations.</b> (1) Precision is not monotone with recall:
-      Claude 4.5 Haiku achieves the highest precision (0.48) but its recall is
-      only 0.19 — the model under-calls tools. (2) Order consistency stays low
-      across the board (best model 0.30), which suggests trajectory ordering
-      is still a real gap even for frontier models.
+      <b>obs_1</b> &nbsp;Precision is not monotone with recall: Claude 4.5
+      Haiku tops precision at <b>0.48</b> while its recall is only 0.19 — the
+      model under-calls tools.<br/>
+      <b>obs_2</b> &nbsp;Order consistency stays low for everyone (best:
+      0.30), so trajectory ordering is still a real gap even for frontier
+      models.
     </div>
   </div>
 </section>
-<section id="yolo" class="section">
+<section id="yolo" class="section alt">
   <div class="container">
-    <div class="section-eyebrow">2026-05 Update</div>
-    <h2>From Paid DINO-X-MCP to Local YOLO</h2>
+    <div class="section-eyebrow">06 · 2026-05 patch</div>
+    <h2>dinox-mcp <span style="color:var(--fg-muted);">→</span> mcp-yolo</h2>
     <p class="lead">
-      The original benchmark used <b>DINO-X-MCP</b>, a cloud detection service
-      with a paid API key and per-call quota. This made every rerun both
-      expensive and flaky. As of May 2026 we ship a drop-in replacement called
-      <code>mcp-yolo</code>.
+      The original benchmark used <b>DINO-X-MCP</b>, a cloud detection
+      service with a paid API key and per-call quota. That made every rerun
+      both expensive and flaky. As of May 2026 we ship a drop-in
+      replacement.
     </p>
 
-    <div class="grid cols-2 mt-16">
-      <div class="card">
-        <h3>Same tool surface</h3>
+    <div class="grid cols-2">
+      <div class="card br">
+        <h3><span class="tag">△</span> same tool surface</h3>
         <p>Identical tool names: <code>detect-all-objects</code> and
-        <code>detect-objects-by-text</code>. Identical payload shape. No task
-        JSON needs editing.</p>
+        <code>detect-objects-by-text</code>. Identical payload shape. No
+        task JSON edits needed.</p>
       </div>
-      <div class="card">
-        <h3>Local, zero-quota</h3>
-        <p>Backed by <b>Ultralytics YOLO</b> (closed-set) and
-        <b>YOLO-World</b> (open-vocabulary text-prompt detection). Runs fully
-        on your machine — no cloud key, no rate limit, no bill.</p>
+      <div class="card br">
+        <h3><span class="tag">△</span> local · zero-quota</h3>
+        <p>Backed by <b>Ultralytics YOLO</b> (closed-set) and <b>YOLO-World</b>
+        (open-vocab text-prompt). Fully on-device. No cloud key, no rate
+        limit, no bill.</p>
       </div>
-      <div class="card">
-        <h3>Graceful fallback</h3>
-        <p>The old <code>dinox-mcp</code> entry is still present in
-        <code>mcp_servers.json</code> with <code>"disabled": true</code>, so
-        older papers that cite the DINO-X chain can still be reproduced by
-        flipping the flag.</p>
+      <div class="card br">
+        <h3><span class="tag">△</span> graceful fallback</h3>
+        <p><code>dinox-mcp</code> stays in <code>mcp_servers.json</code>
+        with <code>"disabled": true</code>. Older papers that cite the
+        DINO-X chain can still be reproduced by flipping one flag.</p>
       </div>
-      <div class="card">
-        <h3>Verified in CI</h3>
+      <div class="card br">
+        <h3><span class="tag">△</span> verified</h3>
         <p><code>tools/functional_test_mcp_servers.py</code> probes every
-        enabled server with a real tool call; <code>mcp-yolo</code> passes on
-        the sample <code>media/00000000.png</code> with detection results.</p>
+        enabled server with a real call; <code>mcp-yolo</code> passes on
+        <code>media/00000000.png</code> with a valid detection.</p>
       </div>
     </div>
 
-    <div class="takeaway mt-24">
-      <b>Upshot.</b> Benchmarks should be <b>reproducible without credit
+    <div class="callout-warn mt-24">
+      <b>rationale</b> — benchmarks should be <b>reproducible without credit
       cards</b>. Swapping DINO-X for YOLO keeps the task distribution fixed
       while removing an external dependency that can silently change or
       expire.
     </div>
   </div>
 </section>
-<section id="quickstart" class="section alt">
+<section id="quickstart" class="section">
   <div class="container">
-    <div class="section-eyebrow">Quick Start</div>
-    <h2>Run M³-Bench in a Few Commands</h2>
+    <div class="section-eyebrow">07 · quick start</div>
+    <h2>Four steps from clone to leaderboard</h2>
     <p class="lead">
       Requirements: Python 3.11, Conda, Node.js (for JS-based MCP servers),
-      optional CUDA, and API keys in <code>.env</code> for commercial endpoints
-      (OpenAI / Anthropic / Google / xAI / DeepSeek / Zhipu, plus the few MCP
-      servers that need Amazon, NASA, Unsplash, or Reddit credentials).
+      optional CUDA, and API keys in <code>.env</code> for commercial
+      endpoints plus a few MCP servers (Amazon / NASA / Unsplash / Reddit).
     </p>
 
     <div class="grid cols-2">
       <div>
-        <h3>① Install deps</h3>
+        <h3 class="mono" style="color:var(--cyan);font-size:14px;letter-spacing:.04em;margin:0 0 8px;">$ 01_install</h3>
 <pre class="code"><code>conda create -n mcp_app python=3.11 -y
 conda activate mcp_app
 pip install -r requirements_pip.txt
 
 # Node-based MCP servers
-(cd servers/tmdb-mcp-server && npm i && npm run build)
-(cd servers/mcp-server-nationalparks && npm i && npm run build)
-(cd servers/metmuseum-mcp && npm i && npm run build)
-(cd servers/okx-mcp && npm i && npm run build)
-(cd servers/hugeicons && npm i && npm run build)
-(cd servers/math-mcp && npm i && npm run build)
+for d in tmdb-mcp-server mcp-server-nationalparks \
+         metmuseum-mcp okx-mcp hugeicons math-mcp; do
+  (cd servers/$d && npm i && npm run build)
+done
 (cd servers/healthcare-mcp-public && npm i)</code></pre>
       </div>
       <div>
-        <h3>② Smoke-test every server</h3>
+        <h3 class="mono" style="color:var(--cyan);font-size:14px;letter-spacing:.04em;margin:0 0 8px;">$ 02_smoke_test</h3>
 <pre class="code"><code>python tools/test_mcp_servers.py
-# Initialization handshake per server
+# -- initialization handshake per server
 
 python tools/functional_test_mcp_servers.py
-# One real tool call per server, checks isError and preview</code></pre>
+# -- one real tool call per server, checks
+#    isError and returns a short preview</code></pre>
         <p class="small">27 servers report <b>OK</b> end-to-end on a clean checkout.</p>
       </div>
-
       <div>
-        <h3>③ Run the benchmark</h3>
+        <h3 class="mono" style="color:var(--cyan);font-size:14px;letter-spacing:.04em;margin:0 0 8px;">$ 03_run_benchmark</h3>
 <pre class="code"><code>bash scripts/benchmark_fuzzy.sh
-# -&gt; results/&lt;model&gt;_test_mcp_fuzzy.json</code></pre>
+# → results/&lt;model&gt;_test_mcp_fuzzy.json</code></pre>
+        <p class="small">All 211 tasks. Picks top-K tools per step from the unified catalog.</p>
       </div>
       <div>
-        <h3>④ Evaluate at three granularities</h3>
-<pre class="code"><code>bash scripts/evaluate_step.sh         # trajectory quality
-bash scripts/evaluate_call.sh         # call classification
-bash scripts/evaluate_final_answer.sh # task completion</code></pre>
+        <h3 class="mono" style="color:var(--cyan);font-size:14px;letter-spacing:.04em;margin:0 0 8px;">$ 04_evaluate</h3>
+<pre class="code"><code>bash scripts/evaluate_step.sh          # trajectory quality
+bash scripts/evaluate_call.sh          # call classification
+bash scripts/evaluate_final_answer.sh  # task completion</code></pre>
+        <p class="small">Three granularities, one command each. Numbers land in <code>results/&lt;model&gt;/</code>.</p>
       </div>
     </div>
   </div>
 </section>
-<section id="resources" class="section">
+<section id="resources" class="section alt">
   <div class="container">
-    <div class="section-eyebrow">Resources</div>
-    <h2>Paper, Code, Dataset, Citation</h2>
+    <div class="section-eyebrow">08 · references</div>
+    <h2>paper · code · dataset · cite</h2>
 
     <div class="grid cols-4 mt-16">
-      <a class="card" href="https://arxiv.org/abs/2511.17729" target="_blank" rel="noopener">
-        <h3>📄 arXiv · 2511.17729</h3>
-        <p>M³-Bench: Multi-Modal, Multi-Hop, Multi-Threaded Tool-Using MLLM
-        Agent Benchmark.</p>
+      <a class="card br" href="https://arxiv.org/abs/2511.17729" target="_blank" rel="noopener">
+        <h3><span class="tag">[P]</span> arXiv 2511.17729</h3>
+        <p>M³-Bench: Multi-Modal, Multi-Hop, Multi-Threaded Tool-Using MLLM Agent Benchmark.</p>
       </a>
-      <a class="card" href="https://github.com/EtaYang10th/Open-M3-Bench" target="_blank" rel="noopener">
-        <h3>💻 GitHub · Open-M3-Bench</h3>
-        <p>Full orchestration suite: MCP host, 27 servers, benchmarking
-        scripts, three evaluation layers, and plotting tools.</p>
+      <a class="card br" href="https://github.com/EtaYang10th/Open-M3-Bench" target="_blank" rel="noopener">
+        <h3><span class="tag">[C]</span> Open-M3-Bench</h3>
+        <p>MCP host, 27 servers, benchmarking scripts, three evaluation layers, plotting tools.</p>
       </a>
-      <a class="card hf-card" href="https://huggingface.co/datasets/EtaYang10th/Open-M3-Bench" target="_blank" rel="noopener">
-        <h3>
-          <svg class="hf-logo" viewBox="0 0 120 120" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="60" cy="60" r="46" fill="#FFD21E"/>
-            <circle cx="60" cy="60" r="46" fill="none" stroke="#FFBD00" stroke-width="3"/>
-            <circle cx="44" cy="54" r="6" fill="#2b2b2b"/>
-            <circle cx="76" cy="54" r="6" fill="#2b2b2b"/>
-            <path d="M38 72 Q60 92 82 72 Q82 82 60 82 Q38 82 38 72 Z" fill="#2b2b2b"/>
-            <path d="M44 74 Q60 86 76 74 L76 76 Q60 84 44 76 Z" fill="#ff5b5b"/>
-          </svg>
-          HF Dataset
-        </h3>
-        <p>The 211 image-grounded tasks with ground-truth MCP trajectories and
-        final answers.</p>
+      <a class="card br" href="https://huggingface.co/datasets/EtaYang10th/Open-M3-Bench" target="_blank" rel="noopener">
+        <h3><span class="tag">[D]</span> HF dataset</h3>
+        <p>211 image-grounded tasks with ground-truth MCP trajectories and final answers.</p>
       </a>
-      <a class="card" href="https://huggingface.co/papers/2511.17729" target="_blank" rel="noopener">
-        <h3>🧡 HF Paper Page</h3>
-        <p>Discussion, related resources, and community comments on the
-        Hugging Face paper page.</p>
+      <a class="card br" href="https://huggingface.co/papers/2511.17729" target="_blank" rel="noopener">
+        <h3><span class="tag">[∆]</span> HF paper page</h3>
+        <p>Discussion, related resources, and community comments.</p>
       </a>
     </div>
 
-    <h3 class="mt-32" style="margin-bottom:8px;">BibTeX</h3>
+    <h3 class="mono mt-32" style="color:var(--cyan);font-size:14px;letter-spacing:.04em;">$ bibtex</h3>
     <div class="bibtex-wrap">
-      <button class="copy-btn" data-copy="#bibtex-box">Copy</button>
+      <button class="copy-btn" data-copy="#bibtex-box">copy</button>
 <pre class="code" id="bibtex-box"><code>@misc{yang2025m3bench,
   title        = {M3-Bench: Multi-Modal, Multi-Hop, Multi-Threaded Tool-Using MLLM Agent Benchmark},
   author       = {Yang, Eta and Zhou, Yang and Zhou, Mu and Metaxas, Dimitris N. and others},
@@ -412,16 +395,17 @@ bash scripts/evaluate_final_answer.sh # task completion</code></pre>
 
     <div class="divider"></div>
     <p class="small">
-      Contact: <a href="mailto:eta.yang@rutgers.edu">eta.yang@rutgers.edu</a> ·
-      <a href="mailto:dnm@rutgers.edu">dnm@rutgers.edu</a>
+      contact: <a href="mailto:eta.yang@rutgers.edu">eta.yang@rutgers.edu</a> ·
+      <a href="mailto:dnm@rutgers.edu">dnm@rutgers.edu</a> &nbsp;·&nbsp;
+      sibling project: <a href="https://etayang10th.github.io/spark.github.io/">SPARK</a>
     </p>
   </div>
 </section>
 
 <footer class="site-footer">
   <div class="container wrap">
-    <div>© 2026 M³-Bench · Rutgers University. Evaluate multi-modal agents on real MCP tools.</div>
-    <div><a href="#top">Back to top ↑</a></div>
+    <div>// © 2026 M³-Bench · Rutgers University · Evaluate agents on real MCP tools.</div>
+    <div><a href="#top">back_to_top ↑</a></div>
   </div>
 </footer>
 
