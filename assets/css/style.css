@@ -397,7 +397,9 @@ figure.fig {
 }
 figure.fig img {
   border-radius: 6px; margin: 0 auto;
-  /* lift the light-background figures on our dark theme */
+}
+/* Light figures (paper plots, white PNGs) get a white inlay to stay legible */
+figure.fig.fig-light img {
   background: #fff;
   padding: 8px;
 }
