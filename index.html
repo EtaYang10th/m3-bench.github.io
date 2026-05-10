@@ -222,41 +222,132 @@
     <div class="section-eyebrow">05 · main results</div>
     <h2>Step-Level Leaderboard</h2>
     <p class="lead">
-      Average step-level score across recall, precision, similarity, step
-      coherence, order consistency, merge purity, completion, and information
-      grounding (see <code>save/step_eval_result.csv</code>).
+      Numbers mirror <b>Table 1</b> of the paper. Eight per-metric columns
+      (Recall, Precision, Arg Similarity, Step Coherence, Order Consistency,
+      Merge Purity, Task Completion, Info Grounding) plus the averaged
+      score. Higher is better everywhere.
     </p>
 
-    <div class="board mt-16">
-      <div class="bar-row top"><span class="name">GPT-5</span><span class="bar"><span style="width:100%"></span></span><span class="val">0.472</span></div>
-      <div class="bar-row"><span class="name">Gemini 2.5 Pro</span><span class="bar"><span style="width:95.7%"></span></span><span class="val">0.452</span></div>
-      <div class="bar-row"><span class="name">Grok 4 (0709)</span><span class="bar"><span style="width:94.6%"></span></span><span class="val">0.447</span></div>
-      <div class="bar-row"><span class="name">Gemini 2.5 Flash</span><span class="bar"><span style="width:79.4%"></span></span><span class="val">0.375</span></div>
-      <div class="bar-row"><span class="name">Claude 4.5 Sonnet</span><span class="bar"><span style="width:72.5%"></span></span><span class="val">0.342</span></div>
-      <div class="bar-row"><span class="name">GPT-5 Mini</span><span class="bar"><span style="width:67.2%"></span></span><span class="val">0.317</span></div>
-      <div class="bar-row"><span class="name">Grok 4 Fast</span><span class="bar"><span style="width:62.9%"></span></span><span class="val">0.297</span></div>
-      <div class="bar-row"><span class="name">Llama-4-Scout-17B-16E</span><span class="bar"><span style="width:62.3%"></span></span><span class="val">0.294</span></div>
-      <div class="bar-row"><span class="name">GPT-5 Nano</span><span class="bar"><span style="width:54.4%"></span></span><span class="val">0.257</span></div>
-      <div class="bar-row"><span class="name">Claude 4.5 Haiku</span><span class="bar"><span style="width:43.2%"></span></span><span class="val">0.204</span></div>
-      <div class="bar-row"><span class="name">InternVL 3.5</span><span class="bar"><span style="width:40.3%"></span></span><span class="val">0.190</span></div>
-      <div class="bar-row"><span class="name">Gemini 2.5 Flash Lite</span><span class="bar"><span style="width:38.1%"></span></span><span class="val">0.180</span></div>
-      <div class="bar-row"><span class="name">Qwen2.5-VL-72B</span><span class="bar"><span style="width:29.6%"></span></span><span class="val">0.140</span></div>
-      <div class="bar-row"><span class="name">GLM 4.5v</span><span class="bar"><span style="width:6.1%"></span></span><span class="val">0.029</span></div>
+    <div class="table-wrap mt-16">
+      <table class="sk">
+        <thead>
+          <tr>
+            <th rowspan="2">Model</th>
+            <th colspan="2" class="group">Detection</th>
+            <th colspan="4" class="group">Trajectory Alignment</th>
+            <th colspan="2" class="group">LLM Judge</th>
+            <th rowspan="2" class="num">Avg</th>
+          </tr>
+          <tr>
+            <th class="num">Rec</th><th class="num">Prec</th>
+            <th class="num">ArgSim</th><th class="num">StepCoh</th><th class="num">OrdCons</th><th class="num">MergePur</th>
+            <th class="num">TaskComp</th><th class="num">InfoGrnd</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="best">
+            <td>GPT-5</td>
+            <td class="num">0.627</td><td class="num">0.264</td>
+            <td class="num">0.583</td><td class="num">0.502</td><td class="num">0.290</td><td class="num">0.453</td>
+            <td class="num">0.671</td><td class="num">0.657</td>
+            <td class="num"><b>0.482</b></td>
+          </tr>
+          <tr>
+            <td>Gemini 2.5 Pro</td>
+            <td class="num">0.501</td><td class="num">0.449</td>
+            <td class="num">0.433</td><td class="num">0.464</td><td class="num">0.249</td><td class="num">0.424</td>
+            <td class="num">0.520</td><td class="num">0.438</td>
+            <td class="num">0.423</td>
+          </tr>
+          <tr>
+            <td>Grok 4 (0709)</td>
+            <td class="num">0.465</td><td class="num">0.387</td>
+            <td class="num">0.408</td><td class="num">0.415</td><td class="num">0.177</td><td class="num">0.390</td>
+            <td class="num">0.664</td><td class="num">0.638</td>
+            <td class="num">0.411</td>
+          </tr>
+          <tr>
+            <td>GPT-5 Mini</td>
+            <td class="num">0.481</td><td class="num">0.238</td>
+            <td class="num">0.462</td><td class="num">0.392</td><td class="num">0.199</td><td class="num">0.360</td>
+            <td class="num">0.652</td><td class="num">0.633</td>
+            <td class="num">0.395</td>
+          </tr>
+          <tr>
+            <td>Gemini 2.5 Flash</td>
+            <td class="num">0.454</td><td class="num">0.397</td>
+            <td class="num">0.409</td><td class="num">0.357</td><td class="num">0.211</td><td class="num">0.412</td>
+            <td class="num">0.530</td><td class="num">0.474</td>
+            <td class="num">0.388</td>
+          </tr>
+          <tr>
+            <td>Claude 4.5 Sonnet</td>
+            <td class="num">0.395</td><td class="num">0.361</td>
+            <td class="num">0.354</td><td class="num">0.389</td><td class="num">0.127</td><td class="num">0.257</td>
+            <td class="num">0.535</td><td class="num">0.451</td>
+            <td class="num">0.333</td>
+          </tr>
+          <tr>
+            <td>Grok-4 Fast</td>
+            <td class="num">0.343</td><td class="num">0.359</td>
+            <td class="num">0.309</td><td class="num">0.284</td><td class="num">0.122</td><td class="num">0.289</td>
+            <td class="num">0.501</td><td class="num">0.378</td>
+            <td class="num">0.298</td>
+          </tr>
+          <tr>
+            <td>Llama-4-Scout-17B-16E</td>
+            <td class="num">0.367</td><td class="num">0.176</td>
+            <td class="num">0.325</td><td class="num">0.286</td><td class="num">0.068</td><td class="num">0.290</td>
+            <td class="num">0.367</td><td class="num">0.335</td>
+            <td class="num">0.264</td>
+          </tr>
+          <tr>
+            <td>GPT-5 Nano</td>
+            <td class="num">0.287</td><td class="num">0.103</td>
+            <td class="num">0.276</td><td class="num">0.228</td><td class="num">0.045</td><td class="num">0.258</td>
+            <td class="num">0.551</td><td class="num">0.529</td>
+            <td class="num">0.247</td>
+          </tr>
+          <tr>
+            <td>Claude 4.5 Haiku</td>
+            <td class="num">0.193</td><td class="num">0.480</td>
+            <td class="num">0.166</td><td class="num">0.190</td><td class="num">0.053</td><td class="num">0.108</td>
+            <td class="num">0.412</td><td class="num">0.246</td>
+            <td class="num">0.205</td>
+          </tr>
+          <tr>
+            <td>Gemini 2.5 Flash Lite</td>
+            <td class="num">0.200</td><td class="num">0.173</td>
+            <td class="num">0.168</td><td class="num">0.179</td><td class="num">0.030</td><td class="num">0.152</td>
+            <td class="num">0.299</td><td class="num">0.241</td>
+            <td class="num">0.180</td>
+          </tr>
+          <tr>
+            <td>InternVL 3.5</td>
+            <td class="num">0.224</td><td class="num">0.143</td>
+            <td class="num">0.193</td><td class="num">0.191</td><td class="num">0.048</td><td class="num">0.161</td>
+            <td class="num">0.325</td><td class="num">0.298</td>
+            <td class="num">0.179</td>
+          </tr>
+          <tr>
+            <td>Qwen2.5-VL-72B</td>
+            <td class="num">0.143</td><td class="num">0.073</td>
+            <td class="num">0.125</td><td class="num">0.125</td><td class="num">0.022</td><td class="num">0.112</td>
+            <td class="num">0.303</td><td class="num">0.388</td>
+            <td class="num">0.141</td>
+          </tr>
+          <tr>
+            <td>GLM 4.5v</td>
+            <td class="num">0.013</td><td class="num">0.023</td>
+            <td class="num">0.011</td><td class="num">0.012</td><td class="num">0.000</td><td class="num">0.013</td>
+            <td class="num">0.285</td><td class="num">0.130</td>
+            <td class="num">0.029</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <figure class="fig fig-wide mt-24">
-      <img src="assets/img/metrics_mllm_step_eval.png" alt="Per-metric breakdown for 14 MLLMs" />
-      <figcaption>per_metric_breakdown :: 14 MLLMs · higher is better on every axis</figcaption>
-    </figure>
-
-    <div class="takeaway mt-24">
-      <b>obs_1</b> &nbsp;Precision is not monotone with recall: Claude 4.5
-      Haiku tops precision at <b>0.48</b> while its recall is only 0.19 — the
-      model under-calls tools.<br/>
-      <b>obs_2</b> &nbsp;Order consistency stays low for everyone (best:
-      0.30), so trajectory ordering is still a real gap even for frontier
-      models.
-    </div>
+    <p class="small mt-8">source :: <code>paper/sec/4_Metrics.tex</code> · Table 1 · <code>tab:mcp_multimodal_results</code></p>
   </div>
 </section>
 <section id="yolo" class="section alt">
