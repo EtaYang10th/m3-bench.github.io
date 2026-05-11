@@ -27,9 +27,8 @@
       <a href="#tools">03_servers</a>
       <a href="#metrics">04_metrics</a>
       <a href="#results">05_results</a>
-      <a href="#yolo">06_yolo</a>
-      <a href="#quickstart">07_run</a>
-      <a href="#resources">08_refs</a>
+      <a href="#quickstart">06_run</a>
+      <a href="#resources">07_refs</a>
       <a class="nav-hf" href="https://huggingface.co/datasets/EtaYang10th/Open-M3-Bench" target="_blank" rel="noopener" aria-label="Hugging Face Dataset">
         <svg class="hf-logo" viewBox="0 0 120 120" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
           <circle cx="60" cy="60" r="46" fill="#FFD21E"/>
@@ -248,55 +247,9 @@
     <p class="small mt-8">source :: <code>paper/sec/4_Metrics.tex</code> · Table 1 · <code>tab:mcp_multimodal_results</code></p>
   </div>
 </section>
-<section id="yolo" class="section alt">
+<section id="quickstart" class="section alt">
   <div class="container">
-    <div class="section-eyebrow">06 · 2026-05 patch</div>
-    <h2>dinox-mcp <span style="color:var(--fg-muted);">→</span> mcp-yolo</h2>
-    <p class="lead">
-      The original benchmark used <b>DINO-X-MCP</b>, a cloud detection
-      service with a paid API key and per-call quota. That made every rerun
-      both expensive and flaky. As of May 2026 we ship a drop-in
-      replacement.
-    </p>
-
-    <div class="grid cols-2">
-      <div class="card br">
-        <h3><span class="tag">△</span> same tool surface</h3>
-        <p>Identical tool names: <code>detect-all-objects</code> and
-        <code>detect-objects-by-text</code>. Identical payload shape. No
-        task JSON edits needed.</p>
-      </div>
-      <div class="card br">
-        <h3><span class="tag">△</span> local · zero-quota</h3>
-        <p>Backed by <b>Ultralytics YOLO</b> (closed-set) and <b>YOLO-World</b>
-        (open-vocab text-prompt). Fully on-device. No cloud key, no rate
-        limit, no bill.</p>
-      </div>
-      <div class="card br">
-        <h3><span class="tag">△</span> graceful fallback</h3>
-        <p><code>dinox-mcp</code> stays in <code>mcp_servers.json</code>
-        with <code>"disabled": true</code>. Older papers that cite the
-        DINO-X chain can still be reproduced by flipping one flag.</p>
-      </div>
-      <div class="card br">
-        <h3><span class="tag">△</span> verified</h3>
-        <p><code>tools/functional_test_mcp_servers.py</code> probes every
-        enabled server with a real call; <code>mcp-yolo</code> passes on
-        <code>media/00000000.png</code> with a valid detection.</p>
-      </div>
-    </div>
-
-    <div class="callout-warn mt-24">
-      <b>rationale</b> — benchmarks should be <b>reproducible without credit
-      cards</b>. Swapping DINO-X for YOLO keeps the task distribution fixed
-      while removing an external dependency that can silently change or
-      expire.
-    </div>
-  </div>
-</section>
-<section id="quickstart" class="section">
-  <div class="container">
-    <div class="section-eyebrow">07 · quick start</div>
+    <div class="section-eyebrow">06 · quick start</div>
     <h2>Four steps from clone to leaderboard</h2>
     <p class="lead">
       Requirements: Python 3.11, Conda, Node.js (for JS-based MCP servers),
@@ -344,9 +297,9 @@ bash scripts/evaluate_final_answer.sh  # task completion</code></pre>
     </div>
   </div>
 </section>
-<section id="resources" class="section alt">
+<section id="resources" class="section">
   <div class="container">
-    <div class="section-eyebrow">08 · references</div>
+    <div class="section-eyebrow">07 · references</div>
     <h2>paper · code · dataset · cite</h2>
 
     <div class="grid cols-4 mt-16">
